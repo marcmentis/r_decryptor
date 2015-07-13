@@ -24,25 +24,25 @@ module RDecryptor
             decipher.decrypt
             decipher.key = key
             decipher.iv = iv
-        #     File.open(File.expand_path('../application2.yml', __FILE__), 'wb') do |dec|
-        #         File.open(encrypted_db_yml, 'rb') do |f|
-        #             loop do
-        #                 r = f.read(4096)
-        #                 break unless r
-        #                 decoded = decipher.update(r)
-        #                 dec << decoded
-        #             end
-        #         end
+            File.open(File.expand_path('../application2.yml', __FILE__), 'wb') do |dec|
+                File.open(encrypted_db_yml, 'rb') do |f|
+                    loop do
+                        r = f.read(4096)
+                        break unless r
+                        decoded = decipher.update(r)
+                        dec << decoded
+                    end
+                end
 
-        #         dec << decipher.final
-        #     end
+                dec << decipher.final
+            end
 
-        # # Create CONFIG[:foo] constants from temp application2.yml
-        #     CONFIG = YAML.load(File.read(File.expand_path('../application2.yml', __FILE__)))
-        #     CONFIG.merge! CONFIG.fetch(Rails.env, {})
-        #     CONFIG.symbolize_keys!
+        # Create CONFIG[:foo] constants from temp application2.yml
+            CONFIG = YAML.load(File.read(File.expand_path('../application2.yml', __FILE__)))
+            CONFIG.merge! CONFIG.fetch(Rails.env, {})
+            CONFIG.symbolize_keys!
 
-        # # Delete temp application2.yml
-        #     File.delete(File.expand_path('../application2.yml', __FILE__)) 
+        # Delete temp application2.yml
+            File.delete(File.expand_path('../application2.yml', __FILE__)) 
         end
 end
